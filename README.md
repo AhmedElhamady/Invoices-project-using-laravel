@@ -23,6 +23,7 @@ Moving to the Invoices Section, the admin and authorized users have the ability 
 -   Admin can send mails to users
 -   Email notification
 -   Print invoices
+-   Recieve notifications in dashboard for admins
 
 ## Used Technologies
 
@@ -36,10 +37,6 @@ Moving to the Invoices Section, the admin and authorized users have the ability 
 -   PHP
 -   Laravel Framework
 -   MySQL Database
-
-## Note
-
-The project is not complete yet, but it is almost done.
 
 #### Screenshots
 
@@ -58,3 +55,4 @@ The project is not complete yet, but it is almost done.
 <img src="screenshots/Picture13.png"/>
 <img src="screenshots/Picture14.png"/>
 <img src="screenshots/Picture15.png"/>
+<img src="screenshots/Picture16.png"/>
