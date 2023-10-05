@@ -7,10 +7,13 @@ use App\Models\Invoice;
 use App\Models\invoice_attachments;
 use App\Models\invoices_details;
 use App\Models\Section;
+use App\Models\User;
+use App\Notifications\Add_invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
@@ -87,6 +90,12 @@ class InvoiceController extends Controller
         }
         $user = Auth::user();
         // Mail::to($user->email)->send(new AddInvoice($invoice_id));
+
+        // $users = User::get(); // send to all users
+        $users = User::where('roles_name', '["owner"]')->where('id', '!=', Auth::user()->id)->get();
+
+        Notification::send($users, new Add_invoice($invoice_id));
+
         session()->flash('Add', 'تم اضافة الفاتوره بنجاح');
         return back();
     }
@@ -217,5 +226,14 @@ class InvoiceController extends Controller
     {
         $invoices = Invoice::where('id', $id)->first();
         return view('invoices.Print_invoice', compact('invoices'));
+    }
+
+    public function markAllAsRead()
+    {
+        $unReadNoty = Auth::user()->unreadNotifications;
+        if ($unReadNoty) {
+            $unReadNoty->markAsRead();
+            return back();
+        }
     }
 }
